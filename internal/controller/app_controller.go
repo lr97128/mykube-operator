@@ -45,6 +45,7 @@ type AppReconciler struct {
 //+kubebuilder:rbac:groups="",resources=services,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=crd.lr97128.com,resources=apps/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=crd.lr97128.com,resources=apps/finalizers,verbs=update
+//+kubebuilder:default:enable_ingress=false
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -117,10 +118,6 @@ func (r *AppReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.R
 		}
 	}
 	//3.Ingress处理，和前面差不多，只是这个enable_ingress可能为空
-	//如果app的enable_service设置为false，则直接返回，不用处理ingress了
-	if !app.Spec.EnableService {
-		return ctrl.Result{}, nil
-	}
 	ingress := utils.NewIngress(app)
 	if err := controllerutil.SetControllerReference(app, ingress, r.Scheme); err != nil {
 		return ctrl.Result{}, err
