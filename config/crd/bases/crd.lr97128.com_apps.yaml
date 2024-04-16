@@ -37,8 +37,10 @@ spec:
           metadata:
             type: object
           spec:
-            description: AppSpec defines the desired state of App
             properties:
+              appPort:
+                format: int32
+                type: integer
               enable_ingress:
                 description: Foo is an example field of App. Edit app_types.go to
                   remove/update
@@ -47,9 +49,26 @@ spec:
                 type: boolean
               image:
                 type: string
+              ingress:
+                properties:
+                  name:
+                    type: string
+                  path:
+                    type: string
+                  urlBase:
+                    type: string
+                required:
+                - path
+                - urlBase
+                type: object
+              servicePort:
+                format: int32
+                type: integer
             required:
+            - appPort
             - enable_service
             - image
+            - servicePort
             type: object
           status:
             description: AppStatus defines the observed state of App

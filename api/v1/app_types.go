@@ -24,14 +24,24 @@ import (
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 // AppSpec defines the desired state of App
+
+type AppIngress struct {
+	Name    string `json:"name,omitempty"`
+	UrlBase string `json:"urlBase"`
+	Path    string `json:"path"`
+}
+
 type AppSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
 	// Foo is an example field of App. Edit app_types.go to remove/update
-	EnableIngress bool   `json:"enable_ingress,omitempty"`
-	EnableService bool   `json:"enable_service"`
-	Image         string `json:"image"`
+	EnableIngress bool       `json:"enable_ingress,omitempty"`
+	EnableService bool       `json:"enable_service"`
+	Image         string     `json:"image"`
+	ServicePort   int32      `json:"servicePort"`
+	AppPort       int32      `json:"appPort"`
+	AppIngress    AppIngress `json:"ingress,omitempty"`
 }
 
 // AppStatus defines the observed state of App
