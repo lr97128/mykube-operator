@@ -70,7 +70,7 @@ spec:
         - /manager
         args:
         - --leader-elect
-        image: controller:latest
+        image: lr97128/appcontrollor:1.0.0
         name: manager
         securityContext:
           allowPrivilegeEscalation: false
